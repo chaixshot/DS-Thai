@@ -72,21 +72,21 @@ function ApplyLocalizedFonts()
         TheSim:LoadFont(MODROOT.."fonts/"..FileName, "thaifont"..tostring(i))
     end
 
-    _G.DEFAULTFONT = "thaifont4"
-    _G.DIALOGFONT = "thaifont4"
-    _G.TITLEFONT = "thaifont6"
-    _G.UIFONT = "thaifont5"
-    _G.BUTTONFONT = "thaifont7"
-    _G.NUMBERFONT = "thaifont2"
-    _G.TALKINGFONT = "thaifont1"
-    _G.SMALLNUMBERFONT = "thaifont3"
-    _G.BODYTEXTFONT = "thaifont2"
-    if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
-        _G.TALKINGFONT_WATHGRITHR = "thaifont8"
-    end
-    if _G.rawget(_G, "TALKINGFONT_WORMWOOD") then
-        _G.TALKINGFONT_WORMWOOD = "thaifont9"
-    end
+	_G.UIFONT = "thaifont5"
+	_G.BUTTONFONT = "thaifont7"
+	_G.DEFAULTFONT = "thaifont4"
+	_G.DIALOGFONT = "thaifont4"
+	_G.TITLEFONT = "thaifont6"
+	_G.NUMBERFONT = "thaifont2"
+	_G.SMALLNUMBERFONT = "thaifont3"
+	_G.BODYTEXTFONT = "thaifont2"
+	_G.TALKINGFONT = "thaifont1"
+	if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
+		_G.TALKINGFONT_WATHGRITHR = "thaifont8"
+	end
+	if _G.rawget(_G, "TALKINGFONT_WORMWOOD") then
+		_G.TALKINGFONT_WORMWOOD = "thaifont9"
+	end
 end
 ApplyLocalizedFonts()
 
@@ -198,18 +198,20 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
 			end
 		end
 	end
+	
+	modimport("scripts/EMPTY.lua")
 end
-
-modimport("scripts/EMPTY.lua")
 
 if Config.UI == "enable" then
 	modimport("scripts/optionsscreen.lua")
 	modimport("scripts/modinfo.lua")
 end
 
-local OldStart=_G.Start
-function VerChecker() 
+local OldStart = _G.Start
+function _G.Start() 
+	ApplyLocalizedFonts()
 	OldStart()
+	
 	TheSim:QueryServer("https://raw.githubusercontent.com/chaixshot/DS-Thai/main/version.txt", function (result, isSuccessful, resultCode)
 		if resultCode == 200 and isSuccessful then
 			local json = require("json")
@@ -217,13 +219,14 @@ function VerChecker()
 			if modinfo.version ~= data.version then
 				local PopupDialogScreen = require "screens/popupdialog"
 				_G.TheFrontEnd:PushScreen(PopupDialogScreen("อัพเดท", "ส่วนเสริม \"ภาษาไทย\" มีอัพเดทใหม่\nกรุณาไปที่เมนู \"ส่วนเสริม\" เพื่ออัพเดท",
-				{{text="เข้าใจแล้ว!", cb = function() _G.TheFrontEnd:PopScreen() end}}))
+				{{text="เข้าใจแล้ว!", cb = function() 
+					_G.TheFrontEnd:PopScreen() 
+				end}}))
 			end
 		end
 	end, "GET")
-	
 end
-_G.Start=VerChecker
 
+-- แก้ข้อความบังคับอัตโนมัติ เช่น "Moon Shard"
 _G.setfenv(1, _G)
 TranslateStringTable(STRINGS)
