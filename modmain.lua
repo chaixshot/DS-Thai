@@ -211,7 +211,10 @@ local OldStart = _G.Start
 function _G.Start() 
 	ApplyLocalizedFonts()
 	OldStart()
-	
+end
+
+-- Version Check
+AddClassPostConstruct("screens/mainscreen",function(self, profile)
 	TheSim:QueryServer("https://raw.githubusercontent.com/chaixshot/DS-Thai/main/version.txt", function (result, isSuccessful, resultCode)
 		if resultCode == 200 and isSuccessful then
 			local json = require("json")
@@ -219,13 +222,19 @@ function _G.Start()
 			if modinfo.version ~= data.version then
 				local PopupDialogScreen = require "screens/popupdialog"
 				_G.TheFrontEnd:PushScreen(PopupDialogScreen("อัพเดท", "ส่วนเสริม \"ภาษาไทย\" มีอัพเดทใหม่\nกรุณาไปที่เมนู \"ส่วนเสริม\" เพื่ออัพเดท",
-				{{text="เข้าใจแล้ว!", cb = function() 
-					_G.TheFrontEnd:PopScreen() 
-				end}}))
+				{
+					{text="อัพเดทเลย!", cb = function() 
+						_G.TheFrontEnd:PopScreen() 
+						self:OnModsButton()
+					end},
+					{text="ปิด!", cb = function() 
+						_G.TheFrontEnd:PopScreen() 
+					end},
+				}))
 			end
 		end
 	end, "GET")
-end
+end)
 
 -- แก้ข้อความบังคับอัตโนมัติ เช่น "Moon Shard"
 _G.setfenv(1, _G)
