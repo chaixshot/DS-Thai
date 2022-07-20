@@ -24,4 +24,4 @@
 &nbsp;</p>
 
 <h1>ทรัพยากรภายนอก:</h1>
-<p><a href="https://steamcommunity.com/linkfilter/?url=https://github.com/chaixshot/DS-Thai" rel="noreferrer" target="_blank">Source code on Github</a>[github.com]</p>
+<p><a href="https://steamcommunity.com/linkfilter/?url=https://github.com/chaixshot/DS-Thai" rel="noreferrer" target="_blank">Source code on Github</a></p>
