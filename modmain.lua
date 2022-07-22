@@ -22,7 +22,7 @@ Config.ITEM = GetModConfigData("CFG_ITEM")
 Config.CFG_ITEM_TWO = GetModConfigData("CFG_ITEM_TWO")
 
 function ApplyLocalizedFonts()
-    local ThaiFontsFileNames = {
+    local LocalizedFontList = {
         "talkingfont__th.zip",
         "stint-ucr50__th.zip",
         "stint-ucr20__th.zip",
@@ -32,10 +32,10 @@ function ApplyLocalizedFonts()
         "buttonfont__th.zip"
     }
     if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
-        table.insert(ThaiFontsFileNames, "talkingfont_wathgrithr__th.zip")
+        table.insert(LocalizedFontList, "talkingfont_wathgrithr__th.zip")
     end
     if _G.rawget(_G, "TALKINGFONT_WORMWOOD") then
-        table.insert(ThaiFontsFileNames, "talkingfont_wormwood__th.zip")
+        table.insert(LocalizedFontList, "talkingfont_wormwood__th.zip")
     end
 
     _G.DEFAULTFONT = "opensans"
@@ -54,23 +54,34 @@ function ApplyLocalizedFonts()
     _G.SMALLNUMBERFONT = "stint-small"
     _G.BODYTEXTFONT = "stint-ucr"
 
-    for i, FileName in ipairs(ThaiFontsFileNames) do
+    for i, FileName in ipairs(LocalizedFontList) do
         TheSim:UnloadFont("thaifont"..tostring(i))
     end
     TheSim:UnloadPrefabs({"thaifonts_"..modname})
 
-    local ThaiFontsAssets = {}
-    for i, FileName in ipairs(ThaiFontsFileNames) do
-        table.insert(ThaiFontsAssets, _G.Asset("FONT", MODROOT.."fonts/"..FileName))
+    local LocalizedFontAssets = {}
+    for i, FileName in ipairs(LocalizedFontList) do
+        table.insert(LocalizedFontAssets, _G.Asset("FONT", MODROOT.."fonts/"..FileName))
     end
 
-    local ThaiFontsPrefab = _G.Prefab("common/thaifonts_"..modname, nil, ThaiFontsAssets)
-    _G.RegisterPrefabs(ThaiFontsPrefab)
+    local LocalizedFontsPrefab = _G.Prefab("common/thaifonts_"..modname, nil, LocalizedFontAssets)
+    _G.RegisterPrefabs(LocalizedFontsPrefab)
     TheSim:LoadPrefabs({"thaifonts_"..modname})
 
-    for i, FileName in ipairs(ThaiFontsFileNames) do
+    for i, FileName in ipairs(LocalizedFontList) do
         TheSim:LoadFont(MODROOT.."fonts/"..FileName, "thaifont"..tostring(i))
     end
+	
+	local fallbacks = {}
+	for _, v in pairs(_G.FONTS) do
+		local FontName = v.filename:sub(7, -5)
+		if LocalizedFontList[FontName] then
+			fallbacks[FontName] = {v.alias, _G.unpack(type(v.fallback) == "table" and v.fallback or {})}
+		end
+	end
+	for FontName in pairs(LocalizedFontList) do
+		TheSim:SetupFontFallbacks(t.SelectedLanguage.."_"..FontName, fallbacks[FontName])
+	end
 
 	_G.UIFONT = "thaifont5"
 	_G.BUTTONFONT = "thaifont7"
