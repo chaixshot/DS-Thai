@@ -1,0 +1,150 @@
+-- Mod info config
+_G.StringUITable["Snaps objects to a grid when placing and displays a build grid around it (unless you hold ctrl)."] = "ยึดวัตถุเข้ากับกริดเมื่อวางและแสดงกริดก่อสร้างรอบๆ (เว้นแต่คุณจะกด Ctrl ค้างไว้)"
+
+_G.StringUITable["Unlimited"] = "ไม่จำกัด"
+_G.StringUITable["Outlined White"] = "ขอบขาว"
+_G.StringUITable["Outlined Black"] = "ขอบดำ"
+_G.StringUITable["The normal green  the game uses."] = "สีเขียวปกติที่เกมใช้"
+_G.StringUITable["Blue, helpful if you're red/green colorblind."] = "สีน้ำเงิน มีประโยชน์หากคุณตาบอดสีแดง/เขียว"
+_G.StringUITable["The normal red the game uses."] = "สีแดงปกติที่เกมใช้"
+_G.StringUITable["A bright white, for better visibility."] = "สีขาวสว่างเพื่อการมองเห็นที่ดีขึ้น"
+_G.StringUITable["Black, to contrast with the brighter colors."] = "สีดำ เพื่อตัดกับสีที่สว่างกว่า"
+_G.StringUITable["White with a black outline, for the best visibility."] = "สีขาวตัดขอบสีดำ เพื่อการมองเห็นที่ดีที่สุด"
+_G.StringUITable["Black with a white outline, for the best visibility."] = "สีดำตัดขอบสีขาว เพื่อการมองเห็นที่ดีที่สุด"
+_G.StringUITable["Hide it entirely, because you didn't need to see it anyway, right?"] = "ซ่อนมันไว้ทั้งหมด เพราะคุณไม่จำเป็นต้องเห็นมันอยู่แล้ว ใช่ไหม?"
+
+_G.StringUITable["CTRL Turns Mod:"] = "CTRL สลับโหมด:"
+_G.StringUITable["Whether holding CTRL enables or disables the mod."] = "กดปุ่ม Ctrl ค้างไว้เพื่อเปิดใช้งานหรือปิดใช้งานส่วนเสริม"
+
+_G.StringUITable["Options Button:"] = "ปุ่มตัวเลือก:"
+_G.StringUITable["A key to open the mod's options. On controllers, open\nthe scoreboard and then use Menu Misc 3 (left stick click). When set to None, controller is also unbound."] = "ปุ่มเปิดเมนูตัวเลือกในเกม\nคอนโทรลเลอร์ให้เปิดกระดานคะแนน จากนั้นใช้เมนู Misc 3 (คลิกสติ๊กซ้าย) เมื่อตั้งค่าเป็นไม่มี \n(ไม่มีปุ่มสำหรับคอนโทรเลอร์)"
+
+_G.StringUITable["Toggle Button:"] = "ปุ่มสลับ:"
+_G.StringUITable["A key to toggle to the most recently used geometry\n(for example, switching between Square and X-Hexagon). No controller binding."] = "ปุ่มสลับไปยังรูปทรงเรขาคณิตที่ใช้ล่าสุด\n(เช่น การสลับระหว่างสี่เหลี่ยมและX หกเหลี่ยม)\n(ไม่มีปุ่มสำหรับคอนโทรเลอร์)"
+
+_G.StringUITable["Snap Grid Button:"] = "ปุ่มสแน็ปกริด:"
+_G.StringUITable["A key to snap the grid to have a point centered on the hovered object or point. No controller binding."] = "ปุ่มจัดกริดเพื่อให้มีจุดกึ่งกลางบนวัตถุหรือจุดที่ชี้ไว้\nไม่มีปุ่มสำหรับคอนโทรเลอร์"
+
+_G.StringUITable["In-Game Menu:"] = "เมนูตัวเลือกในเกม:"
+_G.StringUITable["If on, the button opens the menu.\nIf off, it just toggles the mod on and off."] = "หากเปิด ปุ่มตัวเลือกจะเปิดเมนูตัวเลือกในเกม\nหากปิด ปุ่มตัวเลือกจะสลับเปิดและปิดม็อดเท่านั้น"
+
+_G.StringUITable["Show Build Grid:"] = "แสดงกริด:"
+_G.StringUITable["Whether to show the build grid."] = "แสดงกริดการวาง"
+
+_G.StringUITable["Grid Geometry:"] = "กริดเรขาคณิต:"
+_G.StringUITable["What build grid geometry to use."] = "กริดเรขาคณิตที่จะใช้วาง"
+_G.StringUITable["Square"] = "สี่เหลี่ยม"
+_G.StringUITable["Diamond"] = "เพชร"
+_G.StringUITable["X Hexagon"] = "หกเหลี่ยม X"
+_G.StringUITable["Z Hexagon"] = "หกเหลี่ยม Z"
+_G.StringUITable["Flat Hexagon"] = "หกเหลี่ยมแบน"
+_G.StringUITable["Pointy Hexagon"] = "หกเหลี่ยมแหลม"
+
+_G.StringUITable["Refresh Speed:"] = "อัตรารีเฟรช:"
+_G.StringUITable["How much of the available time to use for refreshing the grid.\nDisabling or setting too high will likely cause lag."] = "อัตราการรีเฟรชกริด\nการปิดใช้งานหรือตั้งค่าสูงเกินไปอาจทำให้เกิดอาการแลค"
+
+_G.StringUITable["Hide Placer:"] = "ซ่อนไอเทม:"
+_G.StringUITable["Whether to hide the placer (the ghost version of the item you're placing).\nHiding it can help you see the grid better."] = "ซ่อนไอเท็มจางๆสำหรับของที่คุณกำลังจะวาง\nการซ่อนไอเทมจะช่วยให้คุณเห็นเส้นกริดได้ดีขึ้น"
+
+_G.StringUITable["Hide Cursor Item:"] = "ซ่อนเคอร์เซอร์ไอเทม:"
+_G.StringUITable["Whether to hide the cursor item, to better see the grid."] = "ซ่อนเคอร์เซอร์ไอเทมเพื่อให้มองเห็นกริดได้ดีขึ้น"
+_G.StringUITable["Hide All"] = "ซ่อนทั้งหมด"
+_G.StringUITable["Show Number"] = "แสดงแค่เลข"
+_G.StringUITable["Show All"] = "แสดงทั้งหมด"
+
+_G.StringUITable["Smart Spacing:"] = "ระยะห่างอัจฉริยะ:"
+_G.StringUITable["Whether to adjust the spacing of the grid based on what object is being placed.\nAllows for optimal grids, but can make it hard to put things just where you want them."] = "ปรับระยะห่างกริดตามไอเทมที่กำลังวาง\nอนุญาตให้มีกริดที่เหมาะสมที่สุด แต่อาจทำให้ยากต่อการวางไอเทมในที่ที่คุณต้องการ"
+
+_G.StringUITable["Till Grid:"] = "กริดพรวนดิน:"
+_G.StringUITable["Whether to use a grid for tilling farm soil.\nAutomatically turned off when using the Snapping Tills mod."] = "ใช้กริดการไถพรวนดินในฟาร์ม\nปิดโดยอัตโนมัติเมื่อใช้ม็อด Snapping Tills"
+
+_G.StringUITable["Fine Grid Size:"] = "ระยะกริดละเอียด:"
+_G.StringUITable["How big to make the grid for things that use a fine grid (structures, plants, etc)."] = "ขนาดกริดสิ่งที่ใช้กริดละเอียด (โครงสร้าง ต้นไม้ ฯลฯ)"
+
+_G.StringUITable["Medium Grid Size:"] = "ระยะกริดกลาง:"
+_G.StringUITable["How big to make the grid for things that use a medium grid (such as walls, DST crops)."] = "ขนาดกริดสำหรับสิ่งต่าง ๆ ที่ใช้กริดขนาดกลาง (เช่น กำแพง การครอบตัด DST)"
+
+_G.StringUITable["Large Grid Size:"] = "ระยะกริดใหญ่:"
+_G.StringUITable["How big to make the grid for things that use a large grid (such as turf and pitchforks)."] = "ขนาดกริดสำหรับสิ่งที่ใช้กริดขนาดใหญ่ (เช่น พื้นหญ้าและส้อมโกย)"
+
+_G.StringUITable["Unblocked Color:"] = "สีไม่บล็อก:"
+_G.StringUITable["The color to use for unblocked points, where you can place things."] = "สีที่ใช้สำหรับจุดที่วางได้"
+
+_G.StringUITable["Blocked Color:"] = "สีถูกบล็อก:"
+_G.StringUITable["The color to use for blocked points, where you cannot place things."] = "สีที่ใช้สำหรับจุดปิดอับที่วางสิ่งไม่ได้"
+
+_G.StringUITable["Nearest Tile Color:"] = "สีกระเบื้องที่ใกล้ที่สุด:"
+_G.StringUITable["The color to use for the nearest tile outline."] = "สีที่จะใช้สำหรับโครงร่างกระเบื้องที่ใกล้ที่สุด"
+
+_G.StringUITable["Unblocked Tile Color:"] = "สีกระเบื้องไม่บล็อก:"
+_G.StringUITable["The color to use for the turf tile grid, where you can place turf."] = "สีที่จะใช้สำหรับกริดซึ่งสามารถวางสนามหญ้าได้"
+
+_G.StringUITable["Blocked Tile Color:"] = "สีกระเบื้องถูกบล็อก:"
+_G.StringUITable["The color to use for the turf tile grid, where you can't place turf."] = "สีที่จะใช้สำหรับกริดซึ่งคุณไม่สามารถวางสนามหญ้าได้"
+
+_G.StringUITable["Unblocked Placer Color:"] = "สีเพลเซอร์ไม่บล็อก:"
+_G.StringUITable["The color to use for an unblocked placer\n(the \"shadow copy\" of the thing you're placing)."] = "สีที่จะใช้สำหรับตัววางที่ไม่ถูกบล็อก\n(\"สำเนาเงา\" ของสิ่งที่คุณกำลังวาง)"
+
+_G.StringUITable["Blocked Placer Color:"] = "สีเพลเซอรถูกบล็อก:"
+_G.StringUITable["The color to use for a blocked placer\n(the \"shadow copy\" of the thing you're placing)."] = "สีที่จะใช้สำหรับตัววางที่ถูกบล็อก\n(\"สำเนาเงา\" ของสิ่งที่คุณวาง)"
+
+_G.StringUITable["Tighter Chests:"] = "หีบชิดกัน:"
+_G.StringUITable["Whether to allow chests to be placed closer together than normal.\nThis may not work in DST."] = "อนุญาตให้วางหีบไว้ใกล้กันมากกว่าปกติ\nอาจใช้ไม่ได้ใน Don't Starve Together"
+
+_G.StringUITable["Controller Offset:"] = "คอนโทรลเลอร์ออฟเซ็ต:"
+_G.StringUITable["With a controller, whether objects get placed\nright at your feet (\"off\") or at an offset (\"on\")."] = "ด้วยคอนโทรเลอร์ ไม่ว่าวัตถุจะวาง\nตรงเท้าคุณ (\"ปิด\") หรือที่ระยะเยื้อง (\"เปิด\")"
+
+_G.StringUITable["Geometric Placement Options"] = "ตัวเลือก Geometric Placement"
+_G.StringUITable["Keybinds"] = "ปุ่ม"
+_G.StringUITable["Geometric Placement Keybinds"] = "คีย์ลัด Geometric Placement"
+_G.StringUITable["Options Menu"] = "เมนูตัวเลือก"
+_G.StringUITable["Toggle Geometry"] = "สลับรูปทรงเรขาคณิต"
+_G.StringUITable["Snap Grid"] = "สแน็ปกริด"
+_G.StringUITable["Turn the mod off, except when holding control."] = "ปิดส่วนเสริม ยกเว้นเมื่อกดค้างไว้"
+_G.StringUITable["Turn the mod on, except when holding control."] = "เปิดส่วนเสริม ยกเว้นเมื่อกดค้างไว้"
+_G.StringUITable["Geometry"] = "เรขาคณิต"
+_G.StringUITable["Colors"] = "สี"
+_G.StringUITable["Red/Green"] = "แดง/เขียว"
+
+_G.StringUITable["The standard red and green that the normal game uses."] = "สีแดงและสีเขียวมาตรฐานที่เกมทั่วไปใช้"
+_G.StringUITable["Substitutes blue in place of the green,\nhelpful for the red/green colorblind."] = "เปลี่ยนเป็นสีน้ำเงินแทนสีเขียว\nมีประโยชน์สำหรับคนตาบอดสีแดง/เขียว"
+_G.StringUITable["Black for blocked and white for placeable,\nusually more visible."] = "สีดำสำหรับถูกบล็อกและสีขาวสำหรับไม่บล็อก\nมักจะมองเห็นได้ชัดเจนกว่า"
+_G.StringUITable["Black and white, but with outlines for improved visibility."] = "ขาวดำ แต่มีโครงร่างเพื่อการมองเห็นที่ดีขึ้น"
+_G.StringUITable["Customize each type of point\nto have its own color or be hidden."] = "ปรับแต่งจุดแต่ละประเภท\nให้มีสีของตัวเองหรือซ่อนไว้"
+_G.StringUITable["Switch back to the preset-picking mode,\nwhich lets you quickly select color schemes."] = "เปลี่ยนกลับไปเป็นโหมดการเลือกล่วงหน้า\nซึ่งช่วยให้คุณเลือกชุดสีได้อย่างรวดเร็ว"
+
+_G.StringUITable["Red/Blue"] = "แดง/น้ำเงิน"
+_G.StringUITable["Black/White"] = "ดำ/ขาว"
+_G.StringUITable["Outlined"] = "ขอบ"
+_G.StringUITable["Blocked"] = "ถูกบล็อก"
+_G.StringUITable["Fine/Wall:"] = "ละเอียด/กำแพง:"
+_G.StringUITable["Turf:"] = "สนามหญ้า:"
+_G.StringUITable["Placer:"] = "เพลสเซอร์:"
+_G.StringUITable["Nearest Tile:"] = "กระเบื้องที่ใกล้ที่สุด:"
+_G.StringUITable["not blocked and you can place there."] = "ไม่บล็อกและสามารถวางที่นั่นได้"
+_G.StringUITable["blocked and you can't place there."] = "ถูกบล็อกและคุณไม่สามารถวางที่นั่นได้"
+_G.StringUITable["The color for the grid points,\nwhen they are not blocked and you can place there."] = "สีกริด\nเมื่อไม่บล็อกและสามารถวางไว้ได้"
+_G.StringUITable["The color for the grid points,\nwhen they are blocked and you can't place there."] = "สีกริด\nเมื่อถูกบล็อกและคุณไม่สามารถวางไว้ได้"
+_G.StringUITable["The color for tiles of turf,\nwhen they are not blocked and you can place there."] = "สีกระเบื้องสนามหญ้า\nเมื่อไม่บล็อกและสามารถวางไว้ได้"
+_G.StringUITable["The color for tiles of turf,\nwhen they are blocked and you can't place there."] = "สีกระเบื้องสนามหญ้า\nเมื่อถูกบล็อกและคุณไม่สามารถวางไว้ได้"
+_G.StringUITable["The color for the shadow copy of the object,\nwhen it is not blocked and you can place there."] = "สีสำเนาเงาวัตถุ\nเมื่อไม่บล็อกและสามารถวางไว้ได้"
+_G.StringUITable["The color for the shadow copy of the object,\nwhen it is blocked and you can't place there."] = "สีสำเนาเงาวัตถุ\nเมื่อถูกบล็อกและคุณไม่สามารถวางไว้ได้"
+_G.StringUITable["The color for the outline of the nearest turf tile."] = "สีโครงร่างกระเบื้องสนามหญ้าที่ใกล้ที่สุด"
+_G.StringUITable["Default\nCamera"] = "มุมกล้องเริ่มต้น"
+_G.StringUITable["Axis\nAligned"] = "แนวแกน"
+_G.StringUITable["Customize"] = "ปรับแต่ง"
+_G.StringUITable["Aligned with the world's X-Z coordinate system.\nWalls and turf always use this geometry."] = "สอดคล้องกับระบบพิกัด X-Z โลก\nกำแพงและสนามหญ้าใช้รูปทรงเรขาคณิตนี้เสมอ"
+_G.StringUITable["Square rotated 45\176.\nLooks square from the default camera."] = "หมุนสี่เหลี่ยม 45°, 176°\nดูสี่เหลี่ยมจากมุมกล้องเริ่มต้น"
+_G.StringUITable["Hexagon with a flat top parallel to the X axis."] = "รูปหกเหลี่ยมที่มียอดแบนขนานกับแกน X"
+_G.StringUITable["Hexagon with a flat top from the default camera."] = "หกเหลี่ยมที่มีด้านบนแบนจากมุมกล้องเริ่มต้น"
+_G.StringUITable["Hexagon with a flat top parallel to the Z axis."] = "รูปหกเหลี่ยมที่มียอดแบนขนานกับแกน Z"
+_G.StringUITable["Hexagon with a pointy top from the default camera."] = "หกเหลี่ยมที่มียอดแหลมจากมุมกล้องเริ่มต้น"
+_G.StringUITable["Grid Sizes"] = "ขนาดกริด"
+_G.StringUITable["How quickly to refresh the grid.\nTurning it up will make it more responsive, but it may cause lag."] = "อัตราการรีเฟรชกริด\nการปิดใช้งานหรือตั้งค่าสูงเกินไปอาจทำให้เกิดอาการแลค"
+_G.StringUITable["Whether to show the placer.\n(The ghost version of the thing you're placing)"] = "ซ่อนไอเทมตัววาง (ไอเท็มจางๆที่คุณกำลังวาง)"
+_G.StringUITable["Whether to show the item on the cursor,\njust the number, or nothing."] = "แสดงไอเทมบนเคอร์เซอร์\nแสดงเฉพาะตัวเลข หรือไม่แสดงอะไรเลย"
+_G.StringUITable["Whether to adjust the grid spacing based\non what you're trying to place."] = "ปรับระยะห่างกริดตาม\nในสิ่งที่คุณพยายามจะวาง"
+_G.StringUITable["Whether to snap to a grid when tilling farm soil."] = "ไม่ว่าจะยึดตะแกรงเมื่อไถพรวนดินในฟาร์ม"
+_G.StringUITable["Fine"] = "ลำเอียด"
+_G.StringUITable["Wall"] = "กำแพง"
+_G.StringUITable["Turf"] = "สนามหญ้า"

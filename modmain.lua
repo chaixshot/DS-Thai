@@ -20,58 +20,39 @@ Config.UI = GetModConfigData("CFG_UI")
 Config.CON = GetModConfigData("CFG_CON")
 Config.ITEM = GetModConfigData("CFG_ITEM")
 Config.CFG_ITEM_TWO = GetModConfigData("CFG_ITEM_TWO")
+Config.CFG_OTHER_MOD = GetModConfigData("CFG_OTHER_MOD")
 
 function ApplyLocalizedFonts()
     local LocalizedFontList = {
-        "talkingfont__th.zip",
-        "stint-ucr50__th.zip",
-        "stint-ucr20__th.zip",
-        "opensans50__th.zip",
-        "belisaplumilla50__th.zip",
-        "belisaplumilla100__th.zip",
-        "buttonfont__th.zip"
-    }
-    if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
-        table.insert(LocalizedFontList, "talkingfont_wathgrithr__th.zip")
-    end
-    if _G.rawget(_G, "TALKINGFONT_WORMWOOD") then
-        table.insert(LocalizedFontList, "talkingfont_wormwood__th.zip")
-    end
+		["belisaplumilla50"] = true,
+		["belisaplumilla100"] = true,
+		["buttonfont"] = true,
+		["opensans50"] = true,
+		["stint-ucr20"] = true,
+		["stint-ucr50"] = true,
+		["talkingfont"] = true,
+		["talkingfont_wathgrithr"] = true,
+		["talkingfont_wormwood"] = true,
+	}
 
-    _G.DEFAULTFONT = "opensans"
-    _G.DIALOGFONT = "opensans"
-    _G.TITLEFONT = "bp100"
-    _G.UIFONT = "bp50"
-    _G.BUTTONFONT = "buttonfont"
-    _G.NUMBERFONT = "stint-ucr"
-    _G.TALKINGFONT = "talkingfont"
-    if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
-        _G.TALKINGFONT_WATHGRITHR = "talkingfont_wathgrithr"
-    end
-    if _G.rawget(_G, "TALKINGFONT_WORMWOOD") then
-        _G.TALKINGFONT_WORMWOOD = "talkingfont_wormwood"
-    end
-    _G.SMALLNUMBERFONT = "stint-small"
-    _G.BODYTEXTFONT = "stint-ucr"
+    for FontName in pairs(LocalizedFontList) do
+		TheSim:UnloadFont(t.SelectedLanguage.."_"..FontName)
+	end
+	TheSim:UnloadPrefabs({t.SelectedLanguage.."_fonts_"..modname}) 
 
-    for i, FileName in ipairs(LocalizedFontList) do
-        TheSim:UnloadFont("thaifont"..tostring(i))
-    end
-    TheSim:UnloadPrefabs({"thaifonts_"..modname})
+	local LocalizedFontAssets = {}
+	for FontName in pairs(LocalizedFontList) do 
+		table.insert(LocalizedFontAssets, _G.Asset("FONT", MODROOT.."fonts/"..FontName.."__"..t.SelectedLanguage..".zip"))
+	end
 
-    local LocalizedFontAssets = {}
-    for i, FileName in ipairs(LocalizedFontList) do
-        table.insert(LocalizedFontAssets, _G.Asset("FONT", MODROOT.."fonts/"..FileName))
-    end
+	local LocalizedFontsPrefab = _G.Prefab("common/"..t.SelectedLanguage.."_fonts_"..modname, nil, LocalizedFontAssets)
+	_G.RegisterPrefabs(LocalizedFontsPrefab)
+	TheSim:LoadPrefabs({t.SelectedLanguage.."_fonts_"..modname})
 
-    local LocalizedFontsPrefab = _G.Prefab("common/thaifonts_"..modname, nil, LocalizedFontAssets)
-    _G.RegisterPrefabs(LocalizedFontsPrefab)
-    TheSim:LoadPrefabs({"thaifonts_"..modname})
+	for FontName in pairs(LocalizedFontList) do
+		TheSim:LoadFont(MODROOT.."fonts/"..FontName.."__"..t.SelectedLanguage..".zip", t.SelectedLanguage.."_"..FontName)
+	end
 
-    for i, FileName in ipairs(LocalizedFontList) do
-        TheSim:LoadFont(MODROOT.."fonts/"..FileName, "thaifont"..tostring(i))
-    end
-	
 	local fallbacks = {}
 	for _, v in pairs(_G.FONTS) do
 		local FontName = v.filename:sub(7, -5)
@@ -83,23 +64,115 @@ function ApplyLocalizedFonts()
 		TheSim:SetupFontFallbacks(t.SelectedLanguage.."_"..FontName, fallbacks[FontName])
 	end
 
-	_G.UIFONT = "thaifont5"
-	_G.BUTTONFONT = "thaifont7"
-	_G.DEFAULTFONT = "thaifont4"
-	_G.DIALOGFONT = "thaifont4"
-	_G.TITLEFONT = "thaifont6"
-	_G.NUMBERFONT = "thaifont2"
-	_G.SMALLNUMBERFONT = "thaifont3"
-	_G.BODYTEXTFONT = "thaifont2"
-	_G.TALKINGFONT = "thaifont1"
-	if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
-		_G.TALKINGFONT_WATHGRITHR = "thaifont8"
+	if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable" then
+        if rawget(_G,"DEFAULTFONT") then
+            _G.DEFAULTFONT = t.SelectedLanguage.."_opensans50"
+        end
+        if rawget(_G,"DIALOGFONT") then
+            _G.DIALOGFONT = t.SelectedLanguage.."_opensans50"
+        end
+        if rawget(_G,"TITLEFONT") then
+            _G.TITLEFONT = t.SelectedLanguage.."_belisaplumilla100"
+        end
+        if rawget(_G,"UIFONT") then
+            _G.UIFONT = t.SelectedLanguage.."_belisaplumilla50"
+        end
+        if rawget(_G,"BUTTONFONT") then
+            _G.BUTTONFONT = t.SelectedLanguage.."_buttonfont"
+        end
+        if rawget(_G,"HEADERFONT") then
+            _G.HEADERFONT = t.SelectedLanguage.."_hammerhead50"
+        end
+        if rawget(_G,"CHATFONT_OUTLINE") then
+            _G.NUMBERFONT = t.SelectedLanguage.."_stint-ucr50"
+        end
+        if rawget(_G,"SMALLNUMBERFONT") then
+            _G.SMALLNUMBERFONT = t.SelectedLanguage.."_stint-ucr20"
+        end
+        if rawget(_G,"BODYTEXTFONT") then
+            _G.BODYTEXTFONT = t.SelectedLanguage.."_stint-ucr50"
+        end
+        if rawget(_G,"CHATFONT_OUTLINE") then
+            _G.CHATFONT_OUTLINE = t.SelectedLanguage.."_bellefair50_outline"
+        end
+		if rawget(_G,"NEWFONT") then
+			_G.NEWFONT = t.SelectedLanguage.."_spirequal"
+		end
+		if rawget(_G,"NEWFONT_SMALL") then
+			_G.NEWFONT_SMALL = t.SelectedLanguage.."_spirequal_small"
+		end
+		if rawget(_G,"NEWFONT_OUTLINE") then
+			_G.NEWFONT_OUTLINE = t.SelectedLanguage.."_spirequal_outline"
+		end
+		if rawget(_G,"NEWFONT_OUTLINE_SMALL") then
+			_G.NEWFONT_OUTLINE_SMALL = t.SelectedLanguage.."_spirequal_outline_small"
+		end
 	end
-	if _G.rawget(_G, "TALKINGFONT_WORMWOOD") then
-		_G.TALKINGFONT_WORMWOOD = "thaifont9"
+    if rawget(_G,"CHATFONT") then
+        _G.CHATFONT = t.SelectedLanguage.."_bellefair50"
+    end
+    if rawget(_G,"TALKINGFONT") then
+        _G.TALKINGFONT = t.SelectedLanguage.."_talkingfont"
+    end
+    if rawget(_G,"TALKINGFONT_HERMIT") then
+        _G.TALKINGFONT_HERMIT = t.SelectedLanguage.."_talkingfont"
+    end
+    if rawget(_G,"TALKINGFONT_TRADEIN") then
+        _G.TALKINGFONT_TRADEIN = t.SelectedLanguage.."_talkingfont_tradein"
+    end
+    if rawget(_G,"TALKINGFONT_WORMWOOD") then
+        _G.TALKINGFONT_WORMWOOD = t.SelectedLanguage.."_talkingfont_wormwood"
+    end
+    if _G.rawget(_G, "TALKINGFONT_WATHGRITHR") then
+		_G.TALKINGFONT_WATHGRITHR = t.SelectedLanguage.."_talkingfont_wathgrithr"
 	end
 end
-ApplyLocalizedFonts()
+
+-- โหลดฟอนต์ในหน้าที่เกมไม่โหลดให้
+local oldSetFont = _G.TextWidget.SetFont
+_G.TextWidget.SetFont = function(guid, font)
+	if font == "opensans" then
+		oldSetFont(guid, _G.DEFAULTFONT)
+	elseif font == "opensans" then
+		oldSetFont(guid, _G.DIALOGFONT)
+	elseif font == "bp100" then
+		oldSetFont(guid, _G.TITLEFONT)
+	elseif font == "bp50" then
+		oldSetFont(guid, _G.UIFONT)
+	elseif font == "buttonfont" then
+		oldSetFont(guid, _G.BUTTONFONT)
+	elseif font == "hammerhead" then
+		oldSetFont(guid, _G.HEADERFONT)
+	elseif font == "stint-ucr" then
+		oldSetFont(guid, _G.NUMBERFONT)
+	elseif font == "stint-small" then
+		oldSetFont(guid, _G.SMALLNUMBERFONT)
+	elseif font == "stint-ucr" then
+		oldSetFont(guid, _G.BODYTEXTFONT)
+	elseif font == "bellefair_outline" then
+		oldSetFont(guid, _G.CHATFONT_OUTLINE)
+	elseif font == "spirequal" then
+		oldSetFont(guid, _G.NEWFONT)
+	elseif font == "spirequal_small" then
+		oldSetFont(guid, _G.NEWFONT_SMALL)
+	elseif font == "spirequal_outline" then
+		oldSetFont(guid, _G.NEWFONT_OUTLINE)
+	elseif font == "spirequal_outline_small" then
+		oldSetFont(guid, _G.NEWFONT_OUTLINE_SMALL)
+	elseif font == "bellefair" then
+		oldSetFont(guid, _G.CHATFONT)
+	elseif font == "talkingfont" then
+		oldSetFont(guid, _G.TALKINGFONT)
+	elseif font == "talkingfont_hermit" then
+		oldSetFont(guid, _G.TALKINGFONT_HERMIT)
+	elseif font == "talkingfont_tradein" then
+		oldSetFont(guid, _G.TALKINGFONT_TRADEIN)
+	elseif font == "talkingfont_wormwood" then
+		oldSetFont(guid, _G.TALKINGFONT_WORMWOOD)
+	else
+		oldSetFont(guid, font)
+	end
+end
 
 Assets = {
     Asset("IMAGE", MODROOT.."images/customisation.tex"),
@@ -116,26 +189,13 @@ Assets = {
     Asset("ATLAS", MODROOT.."images/upgradepanels.xml")
 }
 
-_G.getmetatable(TheSim).__index.UnregisterAllPrefabs = (function()
+_G.getmetatable(TheSim).__index.UnregisterAllPrefabs = (function() -- โหลดฟอนต์ในหน้าที่เกมไม่โหลดให้
 	local oldUnregisterAllPrefabs = _G.getmetatable(TheSim).__index.UnregisterAllPrefabs
 	return function(self, ...)
 		oldUnregisterAllPrefabs(self, ...)
 		ApplyLocalizedFonts()
 	end
 end)()
-
-AddClassPostConstruct("screens/worldgenscreen",function(self) -- แก้ฟ้อนหน้าโหลดโลก
-	ApplyLocalizedFonts()
-	self.worldgentext:SetFont(_G.TITLEFONT)
-	self.flavourtext:SetFont(_G.UIFONT)
-end)
-
-AddClassPostConstruct("widgets/spinner",function(self, options, width, height, textinfo, ...) -- แก้ฟ้อนหน้ากำหนดค่า
-	if textinfo then
-		return
-	end
-	self.text:SetFont(_G.BUTTONFONT)
-end)
 
 --โหลดไฟล์ภาษา
 if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable" then
@@ -173,39 +233,15 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
 		for i,v in pairs(t.PO) do
 			if string.find(i, "STRINGS.NAMES") or string.find(i, "STRINGS.ANTNAMES") or string.find(i, "STRINGS.ANTWARRIORNAMES") or string.find(i, "STRINGS.BALLPHINNAMES") or string.find(i, "STRINGS.BUNNYMANNAMES") or string.find(i, "STRINGS.CHARACTER_NAMES") or string.find(i, "STRINGS.CITYPIGNAMES") or string.find(i, "STRINGS.MANDRAKEMANNAMES") or string.find(i, "STRINGS.MERMNAMES") or string.find(i, "STRINGS.PARROTNAMES") or string.find(i, "STRINGS.PIGNAMES") or string.find(i, "STRINGS.SHIPNAMES") then
 				local data = split(i, ".")
-				local text
-				if #data == 7 then
-					text = STRINGS[data[2]][data[3]][data[4]][data[5]][data[6]][data[7]]
-					if not text then
-						text = STRINGS[data[2]][data[3]][data[4]][data[5]][data[6]][_G.tonumber(data[7])]
-					end
-				elseif #data == 6 then
-					text = STRINGS[data[2]][data[3]][data[4]][data[5]][data[6]]
-					if not text then
-						text = STRINGS[data[2]][data[3]][data[4]][data[5]][_G.tonumber(data[6])]
-					end
-				elseif #data == 5 then
-					text = STRINGS[data[2]][data[3]][data[4]][data[5]]
-					if not text then
-						text = STRINGS[data[2]][data[3]][data[4]][_G.tonumber(data[5])]
-					end
-				elseif #data == 4 then
-					text = STRINGS[data[2]][data[3]][data[4]]
-					if not text then
-						text = STRINGS[data[2]][data[3]][_G.tonumber(data[4])]
-					end
-				elseif #data == 3 then
-					text = STRINGS[data[2]][data[3]]
-					if not text then
-						text = STRINGS[data[2]][_G.tonumber(data[3])]
-					end
-				elseif #data == 2 then
-					text = STRINGS[data[2]]
-					if not text then
-						text = STRINGS[_G.tonumber(data[2])]
+				local String = STRINGS[data[2]]
+				for i=3, #data do
+					if _G.tonumber(data[i]) then
+						String = String[_G.tonumber(data[i])]
+					else
+						String = String[data[i]]
 					end
 				end
-				t.PO[i]=v..(text and "\n("..text..")" or "")
+				t.PO[i]=v..(String and "\n("..String..")" or "")
 			end
 		end
 	end
@@ -216,6 +252,7 @@ end
 if Config.UI == "enable" then
 	modimport("scripts/optionsscreen.lua")
 	modimport("scripts/modinfo.lua")
+    modimport("scripts/fix_ui.lua")
 end
 
 local OldStart = _G.Start

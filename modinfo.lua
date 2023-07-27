@@ -83,7 +83,18 @@ configuration_options =
 			{description = "ปิด", data = "disable", hover = "ปิดการใช้งานไอเทมสองภาษา"},
             {description = "เปิด", data = "enable", hover = "เปิดการใช้งานไอเทมสองภาษา"},
         },
-        default = "disable",
+        default = "enable",
+    },
+    {
+        name = "CFG_OTHER_MOD",
+		label = "แปลส่วนเสริมอื่น",
+		hover = "แปลส่วนเสริมอื่นๆที่สนับสนุนและเปิดการใช้งานอยู่เป็นภาษาไทย",
+        options =
+        {
+			{description = "ปิด", data = "disable", hover = "ปิดการแปลส่วนเสริมอื่น"},
+            {description = "เปิด", data = "enable", hover = "เปิดการแปลส่วนเสริมอื่น"},
+        },
+        default = "enable",
     },
 	{	
 		name = "--2--",
