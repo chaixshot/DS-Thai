@@ -284,7 +284,7 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
                             ItemEN = ItemEN[data[i]]
                         end
                     end
-                    t.PO[text.."."..k]=ItemTH..(ItemEN and "\n("..ItemEN..")" or "")
+                    t.PO[text.."."..k] = (ItemTH~="nil" and ItemTH..(ItemEN and "\n("..ItemEN..")" or "") or "")
                 end
             end
         end
