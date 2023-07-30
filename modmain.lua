@@ -204,47 +204,118 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
 
 	t.PO = _G.LanguageTranslator.languages[t.SelectedLanguage]
 
-	-- ปิดการแปล UI
-	if Config.UI == "disable" then
-		for i,v in pairs(t.PO) do
-			if string.find(i, "STRINGS.UI") then
-				t.PO[i]=""
-			end
-		end
+	-- ไอเทมสองภาษาใน STRING.CHARACTERS, STRING.SKILLTREE, STRING.SKIN_DESCRIPTIONS, STRINGS.RECIPE_DESC
+    if Config.CON == "enable" then
+        local ItemNameTH = {}
+        for k,v in pairs(STRINGS.NAMES) do
+            local nameTH = tostring(t.PO["STRINGS.NAMES."..k])
+            local nameEN = v
+            ItemNameTH[nameTH] = nameEN
+        end
+        local function ItemTwoConversation(text, data)
+            for k,v in pairs(data) do
+                if type(v) == "table" then
+                    ItemTwoConversation(text.."."..k, v)
+                else
+                    local data = split(text.."."..k, ".")
+                    local ConversationTH = t.PO[text.."."..k]
+                    local ConversationEN = STRINGS[data[2]]
+                    for i=3, #data do
+                        if tonumber(data[i]) then
+                            ConversationEN = ConversationEN[tonumber(data[i])]
+                        else
+                            ConversationEN = ConversationEN[data[i]]
+                        end
+                    end
+                    
+                    local BlackList = {
+                        ["Nothing"] = true,
+                        ["X"] = true,
+                        ["Health"] = true,
+                        ["Sanity"] = true,
+                        ["Fire"] = true,
+                        ["Plant"] = true,
+                    }
+                    
+                    for thainame, engname in pairs(ItemNameTH) do
+                        if not BlackList[engname] then
+                            if string.find(ConversationEN, engname) then -- Fast check
+                                if string.find(ConversationEN, "%f[%a]"..engname.."%f[%A]") then -- Slow check
+                                    local newcon = string.gsub(ConversationTH, "%f[%a]"..engname.."%f[%A]", thainame)
+                                    if Config.ITEM == "disable" then -- ปิดแปลชื่อไอเทมในบทสนทนา
+                                        newcon = string.gsub(newcon, thainame, " "..engname.." ")
+                                    else
+                                        newcon = string.gsub(newcon, thainame, thainame.."("..engname..")")
+                                    end
+                                    ConversationTH = string.gsub(newcon, "  ", " ")
+                                    t.PO[text.."."..k] = ConversationTH
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        ItemTwoConversation("STRINGS.CHARACTERS", STRINGS.CHARACTERS)
+        ItemTwoConversation("STRINGS.SKILLTREE", STRINGS.SKILLTREE)
+        ItemTwoConversation("STRINGS.SKIN_DESCRIPTIONS", STRINGS.SKIN_DESCRIPTIONS)
+        ItemTwoConversation("STRINGS.RECIPE_DESC", STRINGS.RECIPE_DESC)
+    end
+    
+    -- ไอเทมสองภาษาในชื่อไอเทมเลย
+    if Config.ITEM == "enable" and Config.CFG_ITEM_TWO == "enable" then
+        local function ItemTwoName(text, data)
+            for k,v in pairs(data) do
+                if type(v) == "table" then
+                    ItemTwoName(text.."."..k, v)
+                else
+                    local data = split(text.."."..k, ".")
+                    local ItemTH = tostring(t.PO[text.."."..k])
+                    local ItemEN = STRINGS[data[2]]
+                    for i=3, #data do
+                        if tonumber(data[i]) then
+                            ItemEN = ItemEN[tonumber(data[i])]
+                        else
+                            ItemEN = ItemEN[data[i]]
+                        end
+                    end
+                    t.PO[text.."."..k]=ItemTH..(ItemEN and "\n("..ItemEN..")" or "")
+                end
+            end
+        end
+        ItemTwoName("STRINGS.NAMES", STRINGS.NAMES)
+        ItemTwoName("STRINGS.BEEFALONAMING", STRINGS.BEEFALONAMING)
+        ItemTwoName("STRINGS.BUNNYMANNAMES", STRINGS.BUNNYMANNAMES)
+        ItemTwoName("STRINGS.CHARACTER_NAMES", STRINGS.CHARACTER_NAMES)
+        ItemTwoName("STRINGS.CROWNAMES", STRINGS.CROWNAMES)
+        ItemTwoName("STRINGS.KITCOON_NAMING", STRINGS.KITCOON_NAMING)
+        ItemTwoName("STRINGS.MERMNAMES", STRINGS.MERMNAMES)
+        ItemTwoName("STRINGS.PIGNAMES", STRINGS.PIGNAMES)
+        ItemTwoName("STRINGS.SWAMPIGNAMES", STRINGS.SWAMPIGNAMES)
 	end
-
-	-- ปิดการแปลบทพูด
-	if Config.CON == "disable" then
-		for i,v in pairs(t.PO) do
-			if string.find(i, "STRINGS.CHARACTERS.GENERIC") then
-				t.PO[i]=""
-			end
-		end
-	end
-
-	-- ปิดการแปลชื่อไอเทม
-	if Config.ITEM == "disable" then 
-		for i,v in pairs(t.PO) do
+    
+    for i,v in pairs(t.PO) do
+        -- ปิดการแปล UI
+        if Config.UI == "disable" then
+            if string.find(i, "STRINGS.UI") then
+                t.PO[i]=""
+            end
+        end
+        
+        -- ปิดการแปลบทพูด
+        if Config.CON == "disable" then
+            if string.find(i, "STRINGS.CHARACTERS.GENERIC") then
+                t.PO[i]=""
+            end
+        end
+        
+        -- ปิดการแปลชื่อไอเทม
+        if Config.ITEM == "disable" then 
 			if string.find(i, "STRINGS.NAMES") then
 				t.PO[i]=""
 			end
-		end
-	elseif Config.CFG_ITEM_TWO == "enable" then  -- ไอเทมสองภาษา
-		for i,v in pairs(t.PO) do
-			if string.find(i, "STRINGS.NAMES") or string.find(i, "STRINGS.ANTNAMES") or string.find(i, "STRINGS.ANTWARRIORNAMES") or string.find(i, "STRINGS.BALLPHINNAMES") or string.find(i, "STRINGS.BUNNYMANNAMES") or string.find(i, "STRINGS.CHARACTER_NAMES") or string.find(i, "STRINGS.CITYPIGNAMES") or string.find(i, "STRINGS.MANDRAKEMANNAMES") or string.find(i, "STRINGS.MERMNAMES") or string.find(i, "STRINGS.PARROTNAMES") or string.find(i, "STRINGS.PIGNAMES") or string.find(i, "STRINGS.SHIPNAMES") then
-				local data = split(i, ".")
-				local String = STRINGS[data[2]]
-				for i=3, #data do
-					if _G.tonumber(data[i]) then
-						String = String[_G.tonumber(data[i])]
-					else
-						String = String[data[i]]
-					end
-				end
-				t.PO[i]=v..(String and "\n("..String..")" or "")
-			end
-		end
-	end
+        end
+    end
 	
 	modimport("scripts/EMPTY.lua")
 end
