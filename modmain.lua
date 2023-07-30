@@ -6,7 +6,9 @@ t = mods.ThaiLanguagePack
 t.SelectedLanguage = "th"
 TheSim = _G.TheSim
 STRINGS = _G.STRINGS
+IsDST = _G.MOD_API_VERSION == 10
 tostring = _G.tostring
+tonumber = _G.tonumber
 require = _G.require
 
 modimport("scripts/utility.lua")
@@ -218,7 +220,7 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
                     ItemTwoConversation(text.."."..k, v)
                 else
                     local data = split(text.."."..k, ".")
-                    local ConversationTH = t.PO[text.."."..k]
+                    local ConversationTH = tostring(t.PO[text.."."..k])
                     local ConversationEN = STRINGS[data[2]]
                     for i=3, #data do
                         if tonumber(data[i]) then
@@ -227,6 +229,7 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
                             ConversationEN = ConversationEN[data[i]]
                         end
                     end
+                    ConversationEN = tostring(ConversationEN)
                     
                     local BlackList = {
                         ["Nothing"] = true,
@@ -257,9 +260,11 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
             end
         end
         ItemTwoConversation("STRINGS.CHARACTERS", STRINGS.CHARACTERS)
-        ItemTwoConversation("STRINGS.SKILLTREE", STRINGS.SKILLTREE)
-        ItemTwoConversation("STRINGS.SKIN_DESCRIPTIONS", STRINGS.SKIN_DESCRIPTIONS)
         ItemTwoConversation("STRINGS.RECIPE_DESC", STRINGS.RECIPE_DESC)
+        if IsDST then
+            ItemTwoConversation("STRINGS.SKILLTREE", STRINGS.SKILLTREE)
+            ItemTwoConversation("STRINGS.SKIN_DESCRIPTIONS", STRINGS.SKIN_DESCRIPTIONS)
+        end
     end
     
     -- ไอเทมสองภาษาในชื่อไอเทมเลย
@@ -284,14 +289,16 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
             end
         end
         ItemTwoName("STRINGS.NAMES", STRINGS.NAMES)
-        ItemTwoName("STRINGS.BEEFALONAMING", STRINGS.BEEFALONAMING)
         ItemTwoName("STRINGS.BUNNYMANNAMES", STRINGS.BUNNYMANNAMES)
         ItemTwoName("STRINGS.CHARACTER_NAMES", STRINGS.CHARACTER_NAMES)
-        ItemTwoName("STRINGS.CROWNAMES", STRINGS.CROWNAMES)
-        ItemTwoName("STRINGS.KITCOON_NAMING", STRINGS.KITCOON_NAMING)
         ItemTwoName("STRINGS.MERMNAMES", STRINGS.MERMNAMES)
         ItemTwoName("STRINGS.PIGNAMES", STRINGS.PIGNAMES)
-        ItemTwoName("STRINGS.SWAMPIGNAMES", STRINGS.SWAMPIGNAMES)
+        if IsDST then
+            ItemTwoName("STRINGS.BEEFALONAMING", STRINGS.BEEFALONAMING)
+            ItemTwoName("STRINGS.CROWNAMES", STRINGS.CROWNAMES)
+            ItemTwoName("STRINGS.KITCOON_NAMING", STRINGS.KITCOON_NAMING)
+            ItemTwoName("STRINGS.SWAMPIGNAMES", STRINGS.SWAMPIGNAMES)
+        end
 	end
     
     for i,v in pairs(t.PO) do

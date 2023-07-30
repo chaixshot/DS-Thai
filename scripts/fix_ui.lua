@@ -1,11 +1,11 @@
 _G.StringUITable = {}
 
 local function TranslateStringTable(text, data)
-    for a,b in pairs(data) do
-        if type(b) == "table" then
-            TranslateStringTable(text.."."..a, b)
+    for k,v in pairs(data) do
+        if type(v) == "table" then
+            TranslateStringTable(text.."."..k, v)
         else
-            _G.StringUITable[data[a]] = t.PO[text.."."..a]
+            _G.StringUITable[data[k]] = t.PO[text.."."..k]
         end
     end
 end
