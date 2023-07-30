@@ -3,7 +3,7 @@ names = {
 	th = " ภาษาไทย",
 }
 name = names[language] or names["en"]
-version = "3.3"
+version = "3.3.1"
 desc = {
 	en = [[
 		This mod is a Thai translation of the game.
