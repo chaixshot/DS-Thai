@@ -17,12 +17,14 @@ if GetModConfigData("DISABLE_MOD_WARNING") then -- ข้ามหน้าก�
 	_G.getmetatable(TheSim).__index.ShouldWarnModsLoaded = function() return false end
 end
 
-Config = {}
-Config.UI = GetModConfigData("CFG_UI")
-Config.CON = GetModConfigData("CFG_CON")
-Config.ITEM = GetModConfigData("CFG_ITEM")
-Config.CFG_ITEM_TWO = GetModConfigData("CFG_ITEM_TWO")
-Config.CFG_OTHER_MOD = GetModConfigData("CFG_OTHER_MOD")
+Config = {
+    UI = GetModConfigData("CFG_UI"),
+    CON = GetModConfigData("CFG_CON"),
+    ITEM = GetModConfigData("CFG_ITEM"),
+    ITEM_TWO = GetModConfigData("CFG_ITEM_TWO"),
+    CON_ITEM_TWO = GetModConfigData("CFG_CON_ITEM_TWO"),
+    OTHER_MOD = GetModConfigData("CFG_OTHER_MOD"),
+}
 
 function ApplyLocalizedFonts()
     local LocalizedFontList = {
@@ -258,19 +260,20 @@ if Config.UI ~= "disable" or Config.CON ~= "disable" or Config.ITEM ~= "disable"
             end
         end
     end
-    if Config.CON == "enable" then
+    
+    if Config.CON_ITEM_TWO == "enable" then
         ItemTwoConversation("STRINGS.CHARACTERS", STRINGS.CHARACTERS)
-    end
-    if Config.UI == "enable" then
-        ItemTwoConversation("STRINGS.RECIPE_DESC", STRINGS.RECIPE_DESC)
-        if IsDST then
-            ItemTwoConversation("STRINGS.SKILLTREE", STRINGS.SKILLTREE)
-            ItemTwoConversation("STRINGS.SKIN_DESCRIPTIONS", STRINGS.SKIN_DESCRIPTIONS)
+        if Config.UI == "enable" then
+            ItemTwoConversation("STRINGS.RECIPE_DESC", STRINGS.RECIPE_DESC)
+            if IsDST then
+                ItemTwoConversation("STRINGS.SKILLTREE", STRINGS.SKILLTREE)
+                ItemTwoConversation("STRINGS.SKIN_DESCRIPTIONS", STRINGS.SKIN_DESCRIPTIONS)
+            end
         end
     end
     
     -- ไอเทมสองภาษาในชื่อไอเทมเลย
-    if Config.ITEM == "enable" and Config.CFG_ITEM_TWO == "enable" then
+    if Config.ITEM == "enable" and Config.ITEM_TWO == "enable" then
         local function ItemTwoName(text, data)
             for k,v in pairs(data) do
                 if type(v) == "table" then
